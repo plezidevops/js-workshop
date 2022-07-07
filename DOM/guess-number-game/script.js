@@ -8,14 +8,17 @@
  * DONE: Use the showYouWon... functions within displayResult to display the correct dialog
  * DONE: Save the guess history in a variable called guess
  * DONE: Display the guess history using displayHistory() function
- * TODO: Use the initGame() function to restart the game
+ * DONE: Use the initGame() function to restart the game
  */
 
 // Variable to store the list of guesses
-const guesses = [];
+let guesses = [];
 
 // Variable for store the correct random number
-const correctNumber = getRandomNumber();
+let correctNumber = getRandomNumber();
+
+// Variable for number guess
+const numberGuessText = 'Try another number';
 
 window.onload = function () {
   document.getElementById("number-submit").addEventListener("click", playGame);
@@ -28,9 +31,9 @@ window.onload = function () {
 function playGame() {
   // *CODE GOES BELOW HERE *
   const numberGuess = document.getElementById('number-guess').value;
+  document.getElementById('number-guess').value = '';
   console.log(correctNumber);
   saveGuessHistory(numberGuess);
-  console.log(guesses);
   displayResult(numberGuess);
   displayHistory();
 }
@@ -43,10 +46,13 @@ function playGame() {
 function displayResult(numberGuess) {
   if (numberGuess > correctNumber) {
     showNumberAbove();
+    changeInputPlaceholder();
   } else if (numberGuess < correctNumber) {
     showNumberBelow();
+    changeInputPlaceholder();
   } else {
     showYouWon();
+    changeInputPlaceholder('You win!!!! ... Restart the game');
   }
 }
 
@@ -57,6 +63,16 @@ function displayResult(numberGuess) {
 */
 function initGame() {
   // *CODE GOES BELOW HERE *
+  guesses = [];
+  correctNumber = 0;
+
+  document.getElementById("result").innerHTML = "";
+  document.getElementById('number-guess').value = '';
+
+  element = document.querySelector(".list-group");
+  if (element) { element.remove("list-group"); }
+
+  changeInputPlaceholder("What's your guess?");
 }
 
 /**
@@ -161,4 +177,9 @@ function showNumberBelow() {
   // *CODE GOES BELOW HERE *
   const dialog = getDialog('warning', text);
   document.getElementById("result").innerHTML = dialog;
+}
+
+function changeInputPlaceholder(text = numberGuessText) {
+  const numberGuessInput = document.getElementById('number-guess');
+  numberGuessInput.placeholder = text;
 }
