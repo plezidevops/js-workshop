@@ -1,10 +1,10 @@
 /**
  * Guess The Number Game
- * TODO: Get user value from input and save it to variable numberGuess
- * TODO: Generate a random number 1 to 100 and save it to variable correctNumber
- * TODO: Console whether the guess is too high, too low, or is correct inside playGame function
- * TODO: Create a function called displayResult to move the logic for if the guess is too high, too low, or correct
- * TODO: Complete the showYouWon, showNumberAbove, showNumberBelow
+ * DONE: Get user value from input and save it to variable numberGuess
+ * DONE: Generate a random number 1 to 100 and save it to variable correctNumber
+ * DONE: Console whether the guess is too high, too low, or is correct inside playGame function
+ * DONE: Create a function called displayResult to move the logic for if the guess is too high, too low, or correct
+ * DONE: Complete the showYouWon, showNumberAbove, showNumberBelow
  * TODO: Use the showYouWon... functions within displayResult to display the correct dialog
  * TODO: Save the guess history in a variable called guess
  * TODO: Display the guess history using displayHistory() function
@@ -14,7 +14,7 @@
 // Variable to store the list of guesses
 
 // Variable for store the correct random number
-
+const correctNumber = getRandomNumber();
 
 window.onload = function () {
   document.getElementById("number-submit").addEventListener("click", playGame);
@@ -26,6 +26,9 @@ window.onload = function () {
 */
 function playGame() {
   // *CODE GOES BELOW HERE *
+  const numberGuess = document.getElementById('number-guess').value;
+  console.log(correctNumber);
+  displayResult(numberGuess);
 }
 
 /**
@@ -33,7 +36,15 @@ function playGame() {
 * HINT: Use if, else if, else statement
 */
 // *CODE GOES BELOW HERE *
-
+function displayResult(numberGuess) {
+  if (numberGuess > correctNumber) {
+    showNumberAbove();
+  } else if (numberGuess < correctNumber) {
+    showNumberBelow();
+  } else {
+    showYouWon();
+  }
+}
 
 
 /**
@@ -57,6 +68,8 @@ function resetResultContent() {
 */
 function getRandomNumber() {
   // *CODE GOES BELOW HERE *
+  const randomNumber = Math.floor((Math.random() * 100) + 1);
+  return randomNumber;
 }
 
 /**
@@ -112,7 +125,7 @@ function showYouWon() {
    * HINT: Use the 'won' and text parameters
    */
   // *CODE GOES BELOW HERE *
-
+  const dialog = getDialog('won', text);
   document.getElementById("result").innerHTML = dialog;
 }
 
@@ -124,7 +137,7 @@ function showNumberAbove() {
    * HINT: Use the 'warning' and text parameters
    */
   // *CODE GOES BELOW HERE *
-
+  const dialog = getDialog('warning', text);
   document.getElementById("result").innerHTML = dialog;
 }
 
@@ -136,6 +149,6 @@ function showNumberBelow() {
    * HINT: Use the 'warning' and text parameters
    */
   // *CODE GOES BELOW HERE *
-
+  const dialog = getDialog('warning', text);
   document.getElementById("result").innerHTML = dialog;
 }
